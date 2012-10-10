@@ -32,6 +32,10 @@ module ActiveImap
       folder.messages
     end
     
+    def destroy
+      @connection.destroy(@id)
+    end
+    
     def persisted?
       @persisted ||= false
     end

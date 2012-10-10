@@ -25,5 +25,9 @@ module ActiveImap
     def method_missing(method, *args)
       @imap.send(method, *args)
     end
+    
+    def delete(id)
+      @imap.copy(id, 'INBOX.Trash')
+    end
   end
 end
