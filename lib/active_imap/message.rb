@@ -31,10 +31,7 @@ module ActiveImap
     def self.all(folder)
       folder.messages
     end
-    
-    def destroy
-      @connection.destroy(@id)
-    end
+
     
     def persisted?
       @persisted ||= false
@@ -211,7 +208,11 @@ module ActiveImap
       end
     end
     
-    public
+    public 
+    def delete
+      @connection.delete(@id)
+    end
+    
     def body_parts
       return @body_parts if @body_parts
       @body_parts = []
@@ -244,6 +245,5 @@ module ActiveImap
         return body_parts.first.content
       end
     end
-    
   end
 end

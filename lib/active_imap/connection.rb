@@ -27,7 +27,10 @@ module ActiveImap
     end
     
     def delete(id)
+      @imap.select('INBOX')
       @imap.copy(id, 'INBOX.Trash')
+      @imap.store(id, "+FLAGS", [:Deleted])
+      @imap.expunge
     end
   end
 end
