@@ -32,5 +32,13 @@ module ActiveImap
       @imap.store(id, "+FLAGS", [:Deleted])
       @imap.expunge
     end
+    def save_sent_message(from_email, message)
+      @imap.select('INBOX')
+      raw = <<-MESSAGE
+Subject: #{message[:subject]}\nFrom: #{from_email}\nTo: #{message[:to]}\n\n#{message[:body]}
+      MESSAGE
+      @imap.append('INBOX.Sent', raw, [:Seen], Time.now)
+      puts Time.now.to_s
+    end
   end
 end
