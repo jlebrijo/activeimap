@@ -59,7 +59,7 @@ module ActiveImap
         @envelope = {
           :uid => ActiveImap::Rfc2047.decode(msg.attr["UID"]),
           :subject => ActiveImap::Rfc2047.decode(envelope.try(:subject)),
-          :date => ActiveImap::Rfc2047.decode(envelope.try(:date)),
+          :date => @connection.fetch(id, "INTERNALDATE")[0].attr["INTERNALDATE"],
           #:internal_date => ActiveImap::Rfc2047.decode(msg.attr["INTERNALDATE"]),
           :size => @connection.fetch(id, "RFC822.SIZE")[0].attr["RFC822.SIZE"],
         }
