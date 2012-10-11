@@ -13,7 +13,7 @@ module ActiveImap
     end
     
     def human(options={})
-      name.blank? ? email : options[:format] and options[:format].to_sym == :short ? name : "#{name} <#{email}>"
+      name.blank? ? email : (options[:format] and options[:format].to_sym == :short) ? name : "#{name} <#{email}>"
     end
     
     def to_s
